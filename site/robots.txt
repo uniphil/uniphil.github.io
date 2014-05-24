@@ -1,0 +1,6 @@
+#
+# all robots are welcome
+#
+
+User-Agent *
+Disallow:

@@ -1,0 +1,9 @@
+{% extends '_base.html' %}
+{% load '%posts' as post %}
+
+{% set title=post.title %}
+
+{% block page_content %}
+  <h1>{{ post.title }}</h1>
+  {{ post.content }}
+{% endblock %}
