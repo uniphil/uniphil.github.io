@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>{{ title or 'blah' }}</title>
+    <title>blah</title>
     <meta name="description" content="some website" />
-    <meta name="viewport" content="width=devie-width, initial-scale=1" />
-    <script>window.SITE_ROOT={{ link('') }};</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>window.SITE_ROOT = "{{ link('') }}";</script>
     <link rel="stylesheet" href="{{ link('static/style.css') }}" />
   </head>
   <body>
     {% block page_content %}
     {% endblock %}
+    <script src="{{ link('static/main.js') }}"></script>
   </body>
-  <script src="{{ link('static/main.js') }}">
 </html>

@@ -1,12 +1,12 @@
 {% extends '_base.html' %}
-{% load 'blog-posts' as posts %}
+{% load 'posts' as posts %}
 
 {% block page_content %}
   <h1>blog posts</h1>
   {% for post in posts %}
     <article>
       <header>
-        <h1><a href="{{ link('blog/{post.slug}/'.format(post=post)) }}">{{ post.title }}</a></h1>
+        <h1><a href="{{ link('blog/{slug}/'.format(slug=post.slug)) }}">{{ post.title }}</a></h1>
         <time>{{ post.published }}</time>
       </header>
       {{ post.body }}

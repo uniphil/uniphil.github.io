@@ -10,6 +10,6 @@ I can make metalsmith do this, even if the convention of calling documents in th
 
 How about static and binary files? Well metalsmith seems to suck here too. Perhaps it just needs the right plugin. I haven't seen it yet.
 
-So I'm making this (yet unnamed) static framework. It will probably suck too. But hey, maybe it will be fun to try.
-
 ![This sucks too, probably](this-sucks.jpg "Lets be honest. Image used without permission, stolen from: http://www.flickr.com/photos/beefranck/2204552996")
+
+So I'm making this (yet unnamed) static framework. It will probably suck too. But hey, maybe it will be fun to try.

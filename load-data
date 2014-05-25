@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import loadlib
 
 
@@ -11,8 +12,10 @@ loadlib.copy(['CNAME', 'static/*'])
 posts = []
 for src_path, dirname, files in loadlib.each_dir('blog-posts'):
 
-    copied_files = loadlib.copy(files, src=src_path,
+    aux = lambda f: os.path.splitext(f)[1] in ('.jpg',)
+    copied_files = loadlib.copy(filter(aux, files), src=src_path,
                                 dest='post-files/{}'.format(dirname))
+    print('copied', copied_files)
 
     post_obj = {
         'slug': dirname,
