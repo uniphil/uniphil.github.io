@@ -179,24 +179,21 @@ attrs.forEach(attr =>
       <p>The problem with the blow-the-dom-away approach above was that we lost transient state like <code>:focus</code> (that we might not want to track ourselves) every time we replaced the DOM. While writing this post, it occurred to me: what if did track and control all that extra state?</p>
       <p>Starting with <code>focus</code>:</p>
       <textarea id="controlled-focus">
-// Callbacks to restore transient state after replacing the DOM
+// An element if one wants to be ref-focused after DOM replacement
 var toFocus = null;
 
-// a new DOM factory that knows how to set focus state
+// a DOM factory that knows how to ask for focus after rendering
 function d(tagName, attrs, focus, events, children) {
   const el = document.createElement(tagName);
   Object.keys(attrs).forEach(atr => el[atr] = attrs[atr]);
-  Object.keys(events).forEach(evt =>
-    el.addEventListener(evt, events[evt]));
+  Object.keys(events).forEach(evt => el.addEventListener(evt, events[evt]));
   children.forEach(child => el.appendChild(child));
-  if (focus) toFocus = el;  // should probably validate that we
-                            // aren't trying to focus > 1 el
+  if (focus) toFocus = el;  // should probably validate that we aren't trying to focus > 1 el in a render
   return el;
 }
 function t(content) { return document.createTextNode(content); }
 
-var isReplacingDOM = false;  // a guard so we can ignore focus/blur
-                             // events during our update
+var isReplacingDOM = false;  // a guard so we can ignore focus/blur events during our update
 
 var isFocused = false;
 var inputText = '';
@@ -232,8 +229,7 @@ const CharCounter = () =>
 
 const root = document.getElementById('controlled-focus-app');
 function replaceDOM() {
-  // guard against focus/blur events triggered by adding/
-  // removing dom nodes triggering state updates
+  // guard against focus/blur events triggered by adding/removing dom nodes triggering state updates
   isReplacingDOM = true;
   // blow away the current DOM
   while (root.lastChild) root.removeChild(root.lastChild);
