@@ -71,7 +71,7 @@ function t(content) {
 }
 
 // Global state woo!
-let clickCount = 0;
+var clickCount = 0;
 
 // Handle state change and re-render
 function increment() {
@@ -115,7 +115,7 @@ const CharCounter = () =>
     t('You have entered ' + inputText.length + ' characters'),
   ]);
 
-let inputText = '';
+var inputText = '';
 
 function setText(text) {
   inputText = text;
@@ -182,7 +182,7 @@ attrs.forEach(attr =>
       <p>Starting with <code>focus</code>:</p>
       <textarea id="controlled-focus">
 // Callbacks to restore transient state after replacing the DOM
-let toFocus = null;
+var toFocus = null;
 
 // a new DOM factory that knows how to set focus state
 function d(tagName, attrs, focus, events, children) {
@@ -197,11 +197,11 @@ function d(tagName, attrs, focus, events, children) {
 }
 function t(content) { return document.createTextNode(content); }
 
-let isReplacingDOM = false;  // a guard so we can ignore focus/blur
+var isReplacingDOM = false;  // a guard so we can ignore focus/blur
                              // events during our update
 
-let isFocused = false;
-let inputText = '';
+var isFocused = false;
+var inputText = '';
 
 // A helper to ensure a guarded re-render after state updates
 const updater = fn => function(/* arguments */) {
@@ -263,7 +263,7 @@ replaceDOM()</textarea>
     <script>
 'use strict';
 CodeMirror.defaults.viewportMargin = Infinity;
-const evil = cm => eval(`(() => { ${cm.getValue()} })()`);
+const evil = cm => eval(`(function() { 'use strict'; ${cm.getValue()} })()`);
 function mirror(src) {
   const cm = CodeMirror.fromTextArea(document.querySelector(src));
   cm.on('change', evil);
