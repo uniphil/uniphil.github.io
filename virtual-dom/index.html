@@ -267,9 +267,11 @@ replaceDOM()</textarea>
     <script>
 'use strict';
 CodeMirror.defaults.viewportMargin = Infinity;
-const evil = cm => eval(`(function() { 'use strict'; ${cm.getValue()} })()`);
+function evil(cm) {
+  eval(`(function() { 'use strict'; ${cm.getValue()} })()`);
+}
 function mirror(src) {
-  const cm = CodeMirror.fromTextArea(document.querySelector(src));
+  var cm = CodeMirror.fromTextArea(document.querySelector(src));
   cm.on('change', evil);
   evil(cm);
 }
