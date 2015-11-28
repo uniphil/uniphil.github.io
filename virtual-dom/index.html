@@ -10,7 +10,7 @@
     <div class="page">
 
       <h1>Virtual DOM is not a feature</h1>
-      <p>This is a blog post came from building a tiny dependency-free prototyping-oriented react-inspired javascript framework (because that's exactly what the world needs more of, right?).</p>
+      <p>This is a blog post came from building a tiny dependency-free prototyping-oriented react-inspired javascript <a title="xxs" href="https://github.com/uniphil/xxs">framework</a> (because that's exactly what the world needs more of, right?).</p>
       <p>React's Virtual DOM is sold as an optimization bolted onto a declarative UI to make it fast. I tried to build the slow version, and learned that Virtual DOM is not an optimization, but rather a foundational building block for declarative UIs on the web.</p>
 
       <h2>A Declarative UI</h2>
@@ -45,7 +45,7 @@ ReactDOM.render(React.createElement(Button),
         <li>attach event listeners,</li>
         <li>change a DOM node's text content</li>
       </ul>
-      <p>&hellip;so this is cool. React components "re-render" themselves any time their state changes.</p>
+      <p>&hellip;so this is cool. React components just "re-render" themselves any time their state changes, and React takes care of updating the DOM for you.</p>
       <p>React is fast because it uses a lightweight javascript representation of the DOM called a Virtual DOM to compute what has changed, and tries to touch the real DOM as little as possible when bringing it up to date. Changing the DOM is slow.</p>
 
       <h2>Attempting to achieve a declarative UI the slow way</h2>
