@@ -4,27 +4,19 @@
     <meta charset="utf-8" />
     <title>Virtual DOM is not a feature</title>
     <link rel="stylesheet" href="codemirror.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="page">
 
-    <h1>Virtual DOM is not a feature</h1>
-    <p>This is a blog post came from building a tiny dependency-free prototyping-oriented react-inspired javascript framework (because that's exactly what the world needs more of, right?). I don't really blog, but here we are.</p>
-    <p>React's Virtual DOM is sold as an optimization bolted onto a declarative UI to make it fast. I tried to build the slow version, and learned that Virtual DOM is not an optimization, but rather a foundational building block for declarative UIs on the web.</p>
+      <h1>Virtual DOM is not a feature</h1>
+      <p>This is a blog post came from building a tiny dependency-free prototyping-oriented react-inspired javascript framework (because that's exactly what the world needs more of, right?). I don't really blog, but here we are.</p>
+      <p>React's Virtual DOM is sold as an optimization bolted onto a declarative UI to make it fast. I tried to build the slow version, and learned that Virtual DOM is not an optimization, but rather a foundational building block for declarative UIs on the web.</p>
 
-    <h2>A Declarative UI</h2>
-    <p><a href="https://facebook.github.io/react/">React</a> is popular tool for building web application User Interfaces ("UIs" or "Views"). With React, developers write code that declaratively specifies what the UI should look like at any given point, without worrying about how to change the interface between states.</p>
-
-    <table>
-      <thead>
-        <tr>
-          <th>React</th>
-          <th>jQuery</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <textarea id="compare-react">
+      <h2>A Declarative UI</h2>
+      <p><a href="https://facebook.github.io/react/">React</a> is popular tool for building web application User Interfaces ("UIs" or "Views"). With React, developers write code that declaratively specifies what the UI should look like at any given point, without worrying about how to change the interface between states.</p>
+      <p>Here's a React component:</p>
+      <textarea id="compare-react">
 const Button = React.createClass({
   getInitialState() {
     return { count: 0 };
@@ -39,59 +31,37 @@ const Button = React.createClass({
   },
 });
 
-ReactDOM.render(React.createElement(Button), document.getElementById('react-demo-app'));</textarea>
-          </td>
-          <td>
-            <textarea id="compare-jq">
-let clickCount = 0;
+ReactDOM.render(React.createElement(Button),
+  document.getElementById('react-demo-app'));</textarea>
+      <div class="demo">
+        <code>#react-demo-app</code>
+        <div id="react-demo-app">
+        </div>
+      </div>
 
-$('#jq-demo-app')
-  .append($('&lt;button&gt;I\'ve been clicked 0 times.&lt;/button&gt;'));
+      <p>What's notable about React code is what it doesn't do. The above code says nothing about how to:</p>
+      <ul>
+        <li>append DOM nodes,</li>
+        <li>attach event listeners,</li>
+        <li>change a DOM node's text content</li>
+      </ul>
+      <p>...so this is cool.</p>
 
-$('#jq-demo-app > button').click(function() {
-  clickCount += 1;
-  $(this).text('I\'ve been clicked ' + clickCount + ' times.');
-});</textarea>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <code>#react-demo-app</code>
-            <div id="react-demo-app">
-            </div>
-          </td>
-          <td>
-            <code>#jq-demo-app</code>
-            <div id="jq-demo-app">
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <h2>Achieving a declarative UI: Virtual DOM</h2>
+      <p>The React example works because React re-renders components any time their `state` changes. In React, a component "rendering" produces a "Virtual DOM", which is a light-weight javascript representation of what we would like the actual DOM to look like.</p>
+      <p>In order to update the real DOM, React first compares the new Virtual DOM to the Virtual DOM from the last render, and then applies the changes it finds to the real DOM to bring it up to date.</p>
+      <p>It turns out that this can be really fast, because it avoids making unnecessary changes to the DOM. Changing the DOM is slow.</p>
 
-    <p>While the line-count is longer, the React code does much less. It does not say anything about how to:</p>
-    <ul>
-      <li>append DOM nodes,</li>
-      <li>attach event listeners,</li>
-      <li>change a DOM node's text content, and</li>
-      <li>bonus: no global `clickCount` variable</li>
-    </ul>
-    <p>...so this is cool.</p>
+      <h2>Attempting to achieve a declarative UI the slow way</h2>
+      <p>The DOM may be slow, but computers are fast. What happens if we just blow away the entire DOM, and replace it with a new one created from scratch instead of messing around with Virtual DOMs? Can we get a declarative UI that works like React but slower?</p>
+      <p>Here's my attempt:</p>
 
-    <h2>Achieving a declarative UI: Virtual DOM</h2>
-    <p>The React example works because React re-renders components any time their `state` changes. In React, a component "rendering" produces a "Virtual DOM", which is a light-weight javascript representation of what we would like the actual DOM to look like.</p>
-    <p>In order to update the real DOM, React first compares the new Virtual DOM to the Virtual DOM from the last render, and then applies the changes it finds to the real DOM to bring it up to date.</p>
-    <p>It turns out that this can be really fast, because it avoids making unnecessary changes to the DOM. Changing the DOM is slow.</p>
-
-    <h2>Attempting to achieve a declarative UI the slow way</h2>
-    <p>The DOM may be slow, but computers are fast. What happens if we just blow away the entire DOM, and replace it with a new one created from scratch instead of messing around with Virtual DOMs? Can we get a declarative UI that works like React but slower?</p>
-    <p>Here's my attempt:</p>
-
-    <textarea id="replace-dom-clickcount">
+      <textarea id="replace-dom-clickcount">
 // Helper: DOM Node factory
 function d(tagName, events, children) {
   const el = document.createElement(tagName);
-  Object.keys(events).forEach(evt => el.addEventListener(evt, events[evt]));
+  Object.keys(events).forEach(evt =>
+    el.addEventListener(evt, events[evt]));
   children.forEach(child => el.appendChild(child));
   return el;
 }
@@ -126,18 +96,22 @@ function replaceDOM() {
 
 // kick things off (we need a first render)
 replaceDOM();</textarea>
-    <div>
-      <code>#replace-dom-app</code>
-      <div id="replace-dom-app"></div>
-    </div>
+      <div class="demo">
+        <code>#replace-dom-app</code>
+        <div id="replace-dom-app"></div>
+      </div>
 
-    <h3>So, React in 30 lines?</h3>
-    <p>There's a big problem with this technique, already showing in the click-counting button example above. See it? I'll make it more obvious:</p>
-    <textarea id="replace-dom-charcount">
+      <h3>So, React in 30 lines?</h3>
+      <p>There's a big problem with this technique, already showing in the click-counting button example above. See it? I'll make it more obvious:</p>
+      <textarea id="replace-dom-charcount">
 // A declarative character-counting text input component
 const CharCounter = () =>
   d('div', {}, {}, [
-    d('input', { value: inputText }, { input: e => setText(e.target.value) }, []),
+    d('input', {
+      value: inputText
+    }, {
+      input: e => setText(e.target.value)
+    }, []),
     t('You have entered ' + inputText.length + ' characters'),
   ]);
 
@@ -150,8 +124,10 @@ function setText(text) {
 
 function d(tagName, attrs, events, children) {
   const el = document.createElement(tagName);
-  Object.keys(attrs).forEach(atr => el[atr] = attrs[atr]);  // see postscript for tricky attribute edge-case
-  Object.keys(events).forEach(evt => el.addEventListener(evt, events[evt]));
+  Object.keys(attrs).forEach(atr => el[atr] = attrs[atr]);
+  // ^^ see postscript for tricky attribute edge-case
+  Object.keys(events).forEach(evt =>
+    el.addEventListener(evt, events[evt]));
   children.forEach(child => el.appendChild(child));
   return el;
 }
@@ -166,45 +142,45 @@ function replaceDOM() {
 
 // kick things off (we need a first render)
 replaceDOM();</textarea>
-    <div>
-      <code>#charcount-app</code>
-      <div id="charcount-app"></div>
-    </div>
+      <div class="demo">
+        <code>#charcount-app</code>
+        <div id="charcount-app"></div>
+      </div>
 
-    <p>After you enter each character, the <code>&lt;input&gt;</code> you're typing in gets blown away. It's replaced with a new one that looks the same, but it's not the same input at all, and you're cursor is not focused on it. Same with the click-counting <code>&lt;button&gt;</code>: if you focus it and try to activate it multiple times with the space-bar, you'll find that it won't.</p>
+      <p>After you enter each character, the <code>&lt;input&gt;</code> you're typing in gets blown away. It's replaced with a new one that looks the same, but it's not the same input at all, and you're cursor is not focused on it. Same with the click-counting <code>&lt;button&gt;</code>: if you focus it and try to activate it multiple times with the space-bar, you'll find that it won't.</p>
 
-    <h3>Refresh vs. Update Semantics</h3>
-    <p>The broken demos above work correctly as specified, but they are horribly broken because the semantics are wrong. Blowing away the DOM and making a new one is like a page-reload, and, (unsurprisingly in hindsight), all transient UI state like `:hover`, `:focus`, and even scroll position, are blown away along with the DOM.</p>
-    <blockquote>
-      <p>When the data changes, React conceptually hits the "refresh" button, and knows to only update the changed parts.</p>
-      <cite>&ndash; <a href="https://facebook.github.io/react/docs/why-react.html#declarative">Why React</a> from the React documentation</cite>
-    </blockquote>
-    <p><strong>Re-rendering in React is not like a page refresh</strong>, because all of that transient state is maintained. The DOM is not "effectively replaced", it's <strong>just mutated</strong>.</p>
-    <p>Does this difference in semantics matter? Probably not. Even React's own documentation gets it wrong. But thanks for reading anyway :)</p>
-    <h2>If not the Virtual DOM, what is the feature that makes React fast?</h2>
-    <p>React needs a description of what you want the DOM to look like in order to choose the DOM mutations it will perform to make it so. That's the Virtual DOM. It's an implementation detail of creating a declarative UI library, not an optimization.</p>
-    <p>Reacts killer speed feature is its nifty algorithms that <strong>operate on</strong> the Virtual DOM in order to quickly compute a sufficient but small number of DOM mutations to perform on the actual page to bring it up to date, not the Virtual DOM itself. That's it!</p>
+      <h3>Refresh vs. Update Semantics</h3>
+      <p>The broken demos above work correctly as specified, but they are horribly broken because the semantics are wrong. Blowing away the DOM and making a new one is like a page-reload, and, (unsurprisingly in hindsight), all transient UI state like `:hover`, `:focus`, and even scroll position, are blown away along with the DOM.</p>
+      <blockquote>
+        <p>When the data changes, React conceptually hits the "refresh" button, and knows to only update the changed parts.</p>
+        <cite>&ndash; <a href="https://facebook.github.io/react/docs/why-react.html#declarative">Why React</a> from the React documentation</cite>
+      </blockquote>
+      <p><strong>Re-rendering in React is not like a page refresh</strong>, because all of that transient state is maintained. The DOM is not "effectively replaced", it's <strong>just mutated</strong>.</p>
+      <p>Does this difference in semantics matter? Probably not. Even React's own documentation gets it wrong. But thanks for reading anyway :)</p>
+      <h2>If not the Virtual DOM, what is the feature that makes React fast?</h2>
+      <p>React needs a description of what you want the DOM to look like in order to choose the DOM mutations it will perform to make it so. That's the Virtual DOM. It's an implementation detail of creating a declarative UI library, not an optimization.</p>
+      <p>Reacts killer speed feature is its nifty algorithms that <strong>operate on</strong> the Virtual DOM in order to quickly compute a sufficient but small number of DOM mutations to perform on the actual page to bring it up to date, not the Virtual DOM itself. That's it!</p>
 
-    <hr />
+      <hr />
 
-    <p>Thanks for reading. Let me know what you think, I'm <a href="https://twitter.com/uncyclephil">@uncyclephil</a> on twitter.</p>
-    <p>If I get around to it or if anyone is interested, I'll write another post about another tricky problem for declarative web UIs: resolving recursive state updates triggered by DOM updates.</p>
+      <p>Thanks for reading. Let me know what you think, I'm <a href="https://twitter.com/uncyclephil">@uncyclephil</a> on twitter.</p>
+      <p>If I get around to it or if anyone is interested, I'll write another post about another tricky problem for declarative web UIs: resolving recursive state updates triggered by DOM updates.</p>
 
-    <hr />
+      <hr />
 
-    <h3>postscript: The ugly <code>Element.setAttribute</code> special case: <code>value</code></h3>
-    <p>Most HTML attributes can be set on DOM elements via <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute"><code>Element.setAttribute(attrName, value)</code></a>, but unfortunately, <code>value</code> is special, and can't be set in this way. It has to be assigned to the element directly instead (<code>el.value = 'some text'</code> instead of <code>el.setAttribute('value', 'some text')</code>). The example code in the post ignores this special case for clarity. As far as I can find, <code>value</code> is the only special attribute that can't be assigned via <code>Element.setAttribute</code>. Friends, the web platform!</p>
-    <p>Special-case handling for looping <code>attrs</code> might look like this:</p>
-    <textarea id="ps">
+      <h3>Postscript: The ugly <code>Element.setAttribute</code> special case: <code>value</code></h3>
+      <p>Most HTML attributes can be set on DOM elements via <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute"><code>Element.setAttribute(attrName, value)</code></a>, but unfortunately, <code>value</code> is special, and can't be set in this way. It has to be assigned to the element directly instead (<code>el.value = 'some text'</code> instead of <code>el.setAttribute('value', 'some text')</code>). The example code in the post ignores this special case for clarity. As far as I can find, <code>value</code> is the only special attribute that can't be assigned via <code>Element.setAttribute</code>. Friends, the web platform!</p>
+      <p>Special-case handling for looping <code>attrs</code> might look like this:</p>
+      <textarea id="ps">
 attrs.forEach(attr =>
   attr === 'value'
     ? el = attrs[attr]
     : el.setAttribute(attr, attrs[attr]));</textarea>
 
-    <h3>post-postscript: Can we get page-reload semantics if we exhaustively declare even transient state?</h3>
-    <p>The problem with the blow-the-dom-away approach above was that we lost transient state like <code>:focus</code> (that we might not want to track ourselves) every time we replaced the DOM. What if did track and control all that extra state?</p>
-    <p>Starting with <code>focus</code>:</p>
-    <textarea id="controlled-focus">
+      <h3>Post-Postscript: Can we get page-reload semantics if we exhaustively declare even transient state?</h3>
+      <p>The problem with the blow-the-dom-away approach above was that we lost transient state like <code>:focus</code> (that we might not want to track ourselves) every time we replaced the DOM. What if did track and control all that extra state?</p>
+      <p>Starting with <code>focus</code>:</p>
+      <textarea id="controlled-focus">
 // Callbacks to restore transient state after replacing the DOM
 let toFocus = null;
 
@@ -212,19 +188,22 @@ let toFocus = null;
 function d(tagName, attrs, focus, events, children) {
   const el = document.createElement(tagName);
   Object.keys(attrs).forEach(atr => el[atr] = attrs[atr]);
-  Object.keys(events).forEach(evt => el.addEventListener(evt, events[evt]));
+  Object.keys(events).forEach(evt =>
+    el.addEventListener(evt, events[evt]));
   children.forEach(child => el.appendChild(child));
-  if (focus) toFocus = el;  // should probably validate that we aren't trying to focus > 1 el
+  if (focus) toFocus = el;  // should probably validate that we
+                            // aren't trying to focus > 1 el
   return el;
 }
 function t(content) { return document.createTextNode(content); }
 
-let isReplacingDOM = false;  // a guard so we can ignore focus/blur events during our update
+let isReplacingDOM = false;  // a guard so we can ignore focus/blur
+                             // events during our update
 
 let isFocused = false;
 let inputText = '';
 
-// A helper function to ensure a guarded re-render after state updates
+// A helper to ensure a guarded re-render after state updates
 const updater = fn => function(/* arguments */) {
   if (!isReplacingDOM) {
     fn.apply(null, arguments);
@@ -255,7 +234,8 @@ const CharCounter = () =>
 
 const root = document.getElementById('controlled-focus-app');
 function replaceDOM() {
-  // guard against focus/blur events triggered by adding/removing dom nodes triggering state updates
+  // guard against focus/blur events triggered by adding/
+  // removing dom nodes triggering state updates
   isReplacingDOM = true;
   // blow away the current DOM
   while (root.lastChild) root.removeChild(root.lastChild);
@@ -270,18 +250,19 @@ function replaceDOM() {
 }
 
 replaceDOM()</textarea>
-    <div>
-      <code>#controlled-focus-app</code>
-      <div id="controlled-focus-app"></div>
+      <div class="demo">
+        <code>#controlled-focus-app</code>
+        <div id="controlled-focus-app"></div>
+      </div>
     </div>
 
     <script src="codemirror.js"></script>
     <script src="javascript.js"></script>
     <script src="react-0.14.3.js"></script>
     <script src="react-dom-0.14.3.js"></script>
-    <script src="jquery-2.1.4.js"></script>
     <script>
 'use strict';
+CodeMirror.defaults.viewportMargin = Infinity;
 const evil = cm => eval(`(() => { ${cm.getValue()} })()`);
 function mirror(src) {
   const cm = CodeMirror.fromTextArea(document.querySelector(src));
@@ -289,7 +270,6 @@ function mirror(src) {
   evil(cm);
 }
 mirror('#compare-react');
-mirror('#compare-jq');
 mirror('#replace-dom-clickcount');
 mirror('#replace-dom-charcount');
 CodeMirror.fromTextArea(document.querySelector('#ps'));
