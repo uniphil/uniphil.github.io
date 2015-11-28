@@ -153,7 +153,7 @@ replaceDOM();</textarea>
       <p><strong>Re-rendering in React is not like a page refresh</strong>, because none of that transient state is lost. The DOM is <strong>just mutated</strong>.</p>
       <p>Does this difference in semantics matter? Probably not. Even React's own documentation gets it wrong. But thanks for reading anyway :)</p>
       <h2>If not the Virtual DOM, what is the feature that makes React fast?</h2>
-      <p>React components render a _description_ of what the DOM should look like, called the Virtual DOM. What I've learned is that Virtual DOM is an implementation detail of creating a declarative UI library, not an optimization.</p>
+      <p>React components render a <em>description</em> of what the DOM should look like, called the Virtual DOM. What I've learned is that Virtual DOM is an implementation detail of creating a declarative UI library, not an optimization.</p>
       <p>Reacts killer speed feature is its nifty <strong>algorithms that operate on</strong> the Virtual DOM in order to quickly compute a sufficient but small number of DOM mutations to perform on the actual page to bring it up to date. That's it!</p>
 
       <hr />
