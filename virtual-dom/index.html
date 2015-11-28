@@ -45,16 +45,12 @@ ReactDOM.render(React.createElement(Button),
         <li>attach event listeners,</li>
         <li>change a DOM node's text content</li>
       </ul>
-      <p>&hellip;so this is cool.</p>
-
-      <h2>Achieving a declarative UI: Virtual DOM</h2>
-      <p>The React example works because React re-renders components any time their `state` changes. In React, a component "rendering" produces a "Virtual DOM", which is a light-weight javascript representation of what we would like the actual DOM to look like.</p>
-      <p>In order to update the real DOM, React first compares the new Virtual DOM to the Virtual DOM from the last render, and then applies the changes it finds to the real DOM to bring it up to date.</p>
-      <p>It turns out that this can be really fast, because it avoids making unnecessary changes to the DOM. Changing the DOM is slow.</p>
+      <p>&hellip;so this is cool. React components "re-render" themselves any time their state changes.</p>
+      <p>React is fast because it uses a lightweight javascript representation of the DOM called a Virtual DOM to compute what has changed, and tries to touch the real DOM as little as possible when bringing it up to date. Changing the DOM is slow.</p>
 
       <h2>Attempting to achieve a declarative UI the slow way</h2>
-      <p>The DOM may be slow, but computers are fast. What happens if we just blow away the entire DOM, and replace it with a new one created from scratch instead of messing around with Virtual DOMs? Can we get a declarative UI that works like React but slower?</p>
-      <p>Here's my attempt:</p>
+      <p>The DOM may be slow, but what happens if we ignore that and just delete the whole DOM and make a new one from scratch instead of messing around with Virtual DOMs? Can we get a declarative UI that works like React but slower?</p>
+      <p>Here is my attempt:</p>
 
       <textarea id="replace-dom-clickcount">
 // Helper: DOM Node factory
@@ -100,6 +96,7 @@ replaceDOM();</textarea>
         <code>#replace-dom-app</code>
         <div id="replace-dom-app"></div>
       </div>
+      <p>Seems to work!</p>
 
       <h3>So, React in 30 lines?</h3>
       <p>There's a big problem with this technique, already showing in the click-counting button example above. See it? It's more obvious if we try to render a text input:</p>
@@ -145,15 +142,15 @@ replaceDOM();</textarea>
         <div id="charcount-app"></div>
       </div>
 
-      <p>After you enter each character, the <code>&lt;input&gt;</code> you're typing in gets blown away. It's replaced with a new one, and your cursor is not focused on it. Same with the click-counting <code>&lt;button&gt;</code>: if you focus it and try to activate it multiple times with the space-bar, you'll find that you lose the button focus after each activation.</p>
+      <p>After you enter each character, the <code>&lt;input&gt;</code> you're typing in gets deleted. It's replaced with a new one, and your cursor is not focused on it. Same with the click-counting <code>&lt;button&gt;</code>: if you focus it and try to activate it multiple times with the space-bar, you'll find that you lose the button focus after each activation.</p>
 
       <h3>Refresh vs. Update Semantics</h3>
-      <p>The broken demos above work correctly as specified, but they are unusable and feel broken because the semantics are wrong. Blowing away the DOM and making a new one is like a page-reload, so all transient UI state like <code>:hover</code>, <code>:focus</code>, and even scroll position, are blown away along with the DOM.</p>
+      <p>The broken demos above work correctly as specified, but they are unusable and feel broken because the semantics are wrong. Deleting the DOM and making a new one is like a page-refresh, so all transient UI state like <code>:hover</code>, <code>:focus</code>, and even scroll position, are lost along with the DOM. Just like in a page-refresh.</p>
       <blockquote>
         <p>When the data changes, React conceptually hits the "refresh" button, and knows to only update the changed parts.</p>
         <cite>&ndash; <a href="https://facebook.github.io/react/docs/why-react.html#declarative">Why React</a> from the React documentation</cite>
       </blockquote>
-      <p><strong>Re-rendering in React is not like a page refresh</strong>, because none of that transient state is lost. The DOM is not "effectively replaced", it's <strong>just mutated</strong>.</p>
+      <p><strong>Re-rendering in React is not like a page refresh</strong>, because none of that transient state is lost. The DOM is <strong>just mutated</strong>.</p>
       <p>Does this difference in semantics matter? Probably not. Even React's own documentation gets it wrong. But thanks for reading anyway :)</p>
       <h2>If not the Virtual DOM, what is the feature that makes React fast?</h2>
       <p>React needs a description of what you want the DOM to look like in order to choose the DOM mutations it will perform to make it so. That's the Virtual DOM. It's an implementation detail of creating a declarative UI library, not an optimization.</p>
