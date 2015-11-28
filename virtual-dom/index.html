@@ -27,7 +27,7 @@ const Button = React.createClass({
   render() {
     return React.createElement('button',
       { onClick: this.handleClick },
-      'I have been clicked ' + this.state.count + ' times.');
+      `I have been clicked ${this.state.count} times.`);
   },
 });
 
@@ -45,7 +45,7 @@ ReactDOM.render(React.createElement(Button),
         <li>attach event listeners,</li>
         <li>change a DOM node's text content</li>
       </ul>
-      <p>...so this is cool.</p>
+      <p>&hellip;so this is cool.</p>
 
       <h2>Achieving a declarative UI: Virtual DOM</h2>
       <p>The React example works because React re-renders components any time their `state` changes. In React, a component "rendering" produces a "Virtual DOM", which is a light-weight javascript representation of what we would like the actual DOM to look like.</p>
@@ -82,7 +82,7 @@ function increment() {
 // Our declarative button component:
 const Button = () =>
   d('button', { click: () => increment() }, [
-    t('I\'ve been clicked ' + clickCount + ' times.'),
+    t(`I've been clicked ${clickCount} times.`),
   ]);
 
 // All the gory DOM stuff
@@ -102,7 +102,7 @@ replaceDOM();</textarea>
       </div>
 
       <h3>So, React in 30 lines?</h3>
-      <p>There's a big problem with this technique, already showing in the click-counting button example above. See it? I'll make it more obvious:</p>
+      <p>There's a big problem with this technique, already showing in the click-counting button example above. See it? It's more obvious if we try to render a text input:</p>
       <textarea id="replace-dom-charcount">
 // A declarative character-counting text input component
 const CharCounter = () =>
@@ -112,16 +112,18 @@ const CharCounter = () =>
     }, {
       input: e => setText(e.target.value)
     }, []),
-    t('You have entered ' + inputText.length + ' characters'),
+    t(`You have entered ${inputText.length} characters`),
   ]);
 
 var inputText = '';
 
+// state updater and re-rendering
 function setText(text) {
   inputText = text;
   replaceDOM();
 }
 
+// DOM stuff:
 function d(tagName, attrs, events, children) {
   const el = document.createElement(tagName);
   Object.keys(attrs).forEach(atr => el[atr] = attrs[atr]);
@@ -132,41 +134,38 @@ function d(tagName, attrs, events, children) {
   return el;
 }
 function t(content) { return document.createTextNode(content); }
-
-
 const root = document.getElementById('charcount-app');
 function replaceDOM() {
   while (root.lastChild) root.removeChild(root.lastChild);
   root.appendChild(CharCounter());
 }
-
-// kick things off (we need a first render)
 replaceDOM();</textarea>
       <div class="demo">
         <code>#charcount-app</code>
         <div id="charcount-app"></div>
       </div>
 
-      <p>After you enter each character, the <code>&lt;input&gt;</code> you're typing in gets blown away. It's replaced with a new one that looks the same, but it's not the same input at all, and you're cursor is not focused on it. Same with the click-counting <code>&lt;button&gt;</code>: if you focus it and try to activate it multiple times with the space-bar, you'll find that it won't.</p>
+      <p>After you enter each character, the <code>&lt;input&gt;</code> you're typing in gets blown away. It's replaced with a new one, and your cursor is not focused on it. Same with the click-counting <code>&lt;button&gt;</code>: if you focus it and try to activate it multiple times with the space-bar, you'll find that you lose the button focus after each activation.</p>
 
       <h3>Refresh vs. Update Semantics</h3>
-      <p>The broken demos above work correctly as specified, but they are horribly broken because the semantics are wrong. Blowing away the DOM and making a new one is like a page-reload, and, (unsurprisingly in hindsight), all transient UI state like `:hover`, `:focus`, and even scroll position, are blown away along with the DOM.</p>
+      <p>The broken demos above work correctly as specified, but they are unusable and feel broken because the semantics are wrong. Blowing away the DOM and making a new one is like a page-reload, so all transient UI state like <code>:hover</code>, <code>:focus</code>, and even scroll position, are blown away along with the DOM.</p>
       <blockquote>
         <p>When the data changes, React conceptually hits the "refresh" button, and knows to only update the changed parts.</p>
         <cite>&ndash; <a href="https://facebook.github.io/react/docs/why-react.html#declarative">Why React</a> from the React documentation</cite>
       </blockquote>
-      <p><strong>Re-rendering in React is not like a page refresh</strong>, because all of that transient state is maintained. The DOM is not "effectively replaced", it's <strong>just mutated</strong>.</p>
+      <p><strong>Re-rendering in React is not like a page refresh</strong>, because none of that transient state is lost. The DOM is not "effectively replaced", it's <strong>just mutated</strong>.</p>
       <p>Does this difference in semantics matter? Probably not. Even React's own documentation gets it wrong. But thanks for reading anyway :)</p>
       <h2>If not the Virtual DOM, what is the feature that makes React fast?</h2>
       <p>React needs a description of what you want the DOM to look like in order to choose the DOM mutations it will perform to make it so. That's the Virtual DOM. It's an implementation detail of creating a declarative UI library, not an optimization.</p>
-      <p>Reacts killer speed feature is its nifty algorithms that <strong>operate on</strong> the Virtual DOM in order to quickly compute a sufficient but small number of DOM mutations to perform on the actual page to bring it up to date, not the Virtual DOM itself. That's it!</p>
+      <p>Reacts killer speed feature is its nifty <strong>algorithms that operate on</strong> the Virtual DOM in order to quickly compute a sufficient but small number of DOM mutations to perform on the actual page to bring it up to date. That's it!</p>
 
       <hr />
 
       <p>Thanks for reading. Let me know what you think, I'm <a href="https://twitter.com/uncyclephil">@uncyclephil</a> on twitter.</p>
-      <p>If I get around to it or if anyone is interested, I'll write another post about another tricky problem for declarative web UIs: resolving recursive state updates triggered by DOM updates.</p>
+      <p>If I get around to it or if someone is interested, I've got a post in mind about another tricky problem for declarative web UIs: correctly dealing with recursive state updates triggered by DOM updates. Sounds so exciting I know&hellip;</p>
 
-      <hr />
+    </div>
+    <div class="postscripts">
 
       <h3>Postscript: The ugly <code>Element.setAttribute</code> special case: <code>value</code></h3>
       <p>Most HTML attributes can be set on DOM elements via <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute"><code>Element.setAttribute(attrName, value)</code></a>, but unfortunately, <code>value</code> is special, and can't be set in this way. It has to be assigned to the element directly instead (<code>el.value = 'some text'</code> instead of <code>el.setAttribute('value', 'some text')</code>). The example code in the post ignores this special case for clarity. As far as I can find, <code>value</code> is the only special attribute that can't be assigned via <code>Element.setAttribute</code>. Friends, the web platform!</p>
@@ -177,8 +176,8 @@ attrs.forEach(attr =>
     ? el = attrs[attr]
     : el.setAttribute(attr, attrs[attr]));</textarea>
 
-      <h3>Post-Postscript: Can we get page-reload semantics if we exhaustively declare even transient state?</h3>
-      <p>The problem with the blow-the-dom-away approach above was that we lost transient state like <code>:focus</code> (that we might not want to track ourselves) every time we replaced the DOM. What if did track and control all that extra state?</p>
+      <h3>Post-postscript: Can we get page-refresh semantics if we exhaustively declare even transient state?</h3>
+      <p>The problem with the blow-the-dom-away approach above was that we lost transient state like <code>:focus</code> (that we might not want to track ourselves) every time we replaced the DOM. While writing this post, it occurred to me: what if did track and control all that extra state?</p>
       <p>Starting with <code>focus</code>:</p>
       <textarea id="controlled-focus">
 // Callbacks to restore transient state after replacing the DOM
@@ -228,7 +227,7 @@ const CharCounter = () =>
       focus: () => focusInput(),
       blur: () => blurInput(),
     }, []),
-    t('You have entered ' + inputText.length + ' characters'),
+    t(`You have entered ${inputText.length} characters`),
   ]);
 
 
@@ -254,6 +253,15 @@ replaceDOM()</textarea>
         <code>#controlled-focus-app</code>
         <div id="controlled-focus-app"></div>
       </div>
+
+      <p>Hey now we are getting somewhere! This is a declarative UI with close to page-refresh semantics, no Virtual DOM, and it seems to work!</p>
+      <p>This may be an interesting avenue to exploring other simplicity-over-efficiency frameworks for declarative UIs. However some immediate weaknesses jump out at me:</p>
+      <ul>
+        <li>There is a lot more more tricky state to manage (<code>toFocus</code> and <code>isReplacingDOM</code> for starters).</li>
+        <li>It may be difficult to correctly manage all state-related events resulting from DOM changes, like a <code>blur</code> event triggered by removing an <code>&lt;input /&gt;</code> that had focus. Or should these events all be silenced if we're really going for page-refresh semantics?</li>
+        <li>Components must declare more state &ndash; actually maybe not an awful thing, but definitely an extra burden for building prototypes quickly</li>
+      </ul>
+      <p>These don't sound like impossible challenges to me, but I think that implementing a Virtual DOM is actually possible with a simpler implementation than solving these problems would require, so that's that path I'm currently sticking to.
     </div>
 
     <script src="codemirror.js"></script>

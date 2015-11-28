@@ -2,6 +2,8 @@ html, body {
   font-family: sans-serif;
   font-size: 24px;
   line-height: 1.618em;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
@@ -30,10 +32,24 @@ code {
   padding: 0 0.2em;
 }
 
+li {
+  line-height: 1.2em;
+}
+
 .page {
   margin: 0 auto;
   max-width: 32em;
   padding: 0 1em;
+}
+
+.postscripts {
+  border-top: 3px dashed #eee;
+  background: #eee;
+  background-clip: padding-box;
+  font-size: 18px;
+  line-height: 1.4em;
+  margin-top: 8em;
+  padding: 2em 5%;
 }
 
 .demo {
