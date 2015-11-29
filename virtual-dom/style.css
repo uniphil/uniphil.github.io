@@ -6,6 +6,19 @@ html, body {
   padding: 0;
 }
 
+.warning {
+  background: #ffa;
+  border-bottom: 3px solid #660;
+  color: #660;
+  display: none;
+  margin: 0;
+  padding: 1em;
+  text-align: center;
+}
+.es6-fail .warning {
+  display: block;
+}
+
 h1 {
   border-bottom: 3px dashed #ccc;
   margin: 3em 0 1.5em;

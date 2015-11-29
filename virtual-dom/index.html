@@ -6,7 +6,10 @@
     <link rel="stylesheet" href="codemirror.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body class="es6-fail">
+    <p class="warning">
+      While all of the the text and code here should (hopefully!) render for you, the live demos on this page use new es6 features that your browser does not support, because I wanted to write this post in modern JavaScript syntax and let readers edit and experiment with it. It's not you, it's me. Sorry :(
+    </p>
     <div class="page">
 
       <h1>Virtual DOM is not an optimization</h1>
@@ -266,6 +269,10 @@ replaceDOM()</textarea>
     <script src="react-dom-0.14.3.js"></script>
     <script>
 'use strict';
+try {
+  const _constTestVar = 'asdf';
+  document.body.className = "";
+} catch (e) {}
 CodeMirror.defaults.viewportMargin = Infinity;
 function evil(cm) {
   eval(`(function() { 'use strict'; ${cm.getValue()} })()`);
