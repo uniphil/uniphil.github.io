@@ -263,11 +263,6 @@ replaceDOM()</textarea>
       <p>These don't sound like impossible challenges to me, but I think that implementing a Virtual DOM is actually possible with a simpler implementation than solving these problems would require, so that's that path I'm currently sticking to.
     </div>
 
-    <script src="codemirror.js"></script>
-    <script src="javascript.js"></script>
-    <script src="react-0.14.3.js"></script>
-    <script src="react-dom-0.14.3.js"></script>
-
     <script>
 'use strict';
 // Feature-detect const
@@ -282,6 +277,14 @@ replaceDOM()</textarea>
 if (window._hasConstSupport) {
   document.body.className = "";
 }
+    </script>
+
+    <script src="codemirror.js"></script>
+    <script src="javascript.js"></script>
+    <script src="react-0.14.3.js"></script>
+    <script src="react-dom-0.14.3.js"></script>
+
+    <script>
 CodeMirror.defaults.viewportMargin = Infinity;
 function evil(cm) {
   eval(`(function() { 'use strict'; ${cm.getValue()} })()`);
