@@ -254,13 +254,15 @@ replaceDOM()</textarea>
       </div>
 
       <p>Hey now we are getting somewhere! This is a declarative UI with close to page-refresh semantics, no Virtual DOM, and it seems to work!</p>
-      <p>This may be an interesting avenue to exploring other simplicity-over-efficiency frameworks for declarative UIs. However some immediate weaknesses jump out at me:</p>
+      <p>&hellip;well, almost. We're not capturing some <em>more</em> important transient state: the cursor position! This is more quickly noticeable on Firefox, which places the cursor at the beginning of the input on <code>.focus()</code>. Chrome puts it at the end, so you find the problem if you try to insert a word in the middle of some already-entered text. No reason we can't also manage and declare that state too though, right?</p>
+      <p>I'm not convinced that it's useful to go all the way with declarative UIs and manage <em>every single bit</em> of all the state in web applications.</p>
       <ul>
         <li>There is a lot more more tricky state to manage (<code>toFocus</code> and <code>isReplacingDOM</code> for starters).</li>
         <li>It may be difficult to correctly manage all state-related events resulting from DOM changes, like a <code>blur</code> event triggered by removing an <code>&lt;input /&gt;</code> that had focus. Or should these events all be silenced if we're really going for page-refresh semantics?</li>
         <li>Components must declare more state &ndash; actually maybe not an awful thing, but definitely an extra burden for building prototypes quickly</li>
+        <li>Managing this extra state means re-specifying a lot of exising browser behaviour. Differences are going to make the interactions feel fake (I guess because they are).</li>
       </ul>
-      <p>These don't sound like impossible challenges to me, but I think that implementing a Virtual DOM is actually possible with a simpler implementation than solving these problems would require, so that's that path I'm currently sticking to.
+      <p>So for the time being, I'm sticking to the simplest VirtualDOM implementation I can come up with.</p>
     </div>
 
     <script>
