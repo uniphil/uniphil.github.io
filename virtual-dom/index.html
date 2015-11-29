@@ -267,12 +267,21 @@ replaceDOM()</textarea>
     <script src="javascript.js"></script>
     <script src="react-0.14.3.js"></script>
     <script src="react-dom-0.14.3.js"></script>
+
     <script>
 'use strict';
-try {
-  const _constTestVar = 'asdf';
+// Feature-detect const
+(function() {
+  const browserSupportsConst = true;
+  window._hasConstSupport = browserSupportsConst;
+})();
+    </script>
+
+    <script>
+'use strict';
+if (window._hasConstSupport) {
   document.body.className = "";
-} catch (e) {}
+}
 CodeMirror.defaults.viewportMargin = Infinity;
 function evil(cm) {
   eval(`(function() { 'use strict'; ${cm.getValue()} })()`);
