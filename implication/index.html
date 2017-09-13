@@ -27,7 +27,7 @@
 
       <p>Say you have a configuration that has different modes, and each mode has a set of options. You want to make sure that options for mode <code>A</code> are only used when mode is actually <code>A</code>.</p>
 
-      <aside>(better modelling of the problem to make using <code>A</code>'s options without being in mode <code>A</code> would be a nice solution to this, but bear with me)</aside>
+      <aside>(making it impossible to use <code>A</code>'s options without being in mode <code>A</code> might be a <a href="https://en.wikipedia.org/wiki/Algebraic_data_type">nicer solution</a>, but bear with me)</aside>
 
       <p>You could do this:</p>
 
@@ -76,7 +76,7 @@ assert(𐅙(optionForA is set, mode === 'A'),
     'optionForA is only valid when mode is A')
 </pre>
 
-      <p>Unfortunately javascript is strict, so we can't short-circuit the right-hand-side expression the way JS does with <code>&&</code> and <code>||</code>.</p>
+      <p>Unfortunately javascript is <a href="https://en.wikipedia.org/wiki/Strict_programming_language">strict</a>, so we can't avoid evaluating <code>q</code>. (Real operators in JS like <code>&&</code> and <code>||</code> can, via <a href="https://en.wikipedia.org/wiki/Short-circuit_evaluation">short-circuit evaluation</a>.</p>
 
       <pre>
 false && die();   // doesn't die
