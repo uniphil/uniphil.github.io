@@ -69,7 +69,8 @@ assert((optionForA is set) → (mode === 'A'),
       <p>Doing this with the standard programming language boolean operators works, but is not easy for me to read:</p>
 
       <pre>
-assert(!(optionForA is set) || (mode === 'A'))
+assert(!(optionForA is set) || (mode === 'A'),
+    'optionForA is only valid when mode is A')
       </pre>
 
       <p>Ternaries can help, but the `: true` side gives me a WTF moment every time</p>
