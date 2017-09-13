@@ -1,0 +1,79 @@
+html, body {
+  font-family: sans-serif;
+  font-size: 24px;
+  line-height: 1.618em;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  border-bottom: 3px dashed #ccc;
+  margin: 3em 0 1.5em;
+  padding-bottom: 1rem;
+}
+
+h2,
+h3 {
+  color: #333;
+  margin-top: 2.4em;
+}
+
+blockquote {
+  border-left: 3px solid #ccc;
+  color: #666;
+  font-size: 0.9em;
+  padding-left: 1em;
+}
+
+code {
+  background: #eff4f4;
+  border-radius: 3px;
+  color: #257;
+  padding: 0 0.2em;
+}
+
+li {
+  line-height: 1.2em;
+}
+
+.page {
+  margin: 0 auto;
+  max-width: 32em;
+  padding: 0 1em;
+}
+
+.postscripts {
+  border-top: 3px dashed #eee;
+  background: #eee;
+  background-clip: padding-box;
+  font-size: 18px;
+  line-height: 1.4em;
+  margin-top: 8em;
+  padding: 2em 5%;
+}
+
+.demo {
+  border: 3px dashed #ccc;
+  font-size: 18px;
+  margin-top: 1em;
+  padding: 0.5em 1em 1em;
+}
+.demo code {
+  background: #ccc;
+  color: #133;
+  display: block;
+  margin: calc(-0.5em - 3px) calc(-1em - 3px) 1em calc(-1em - 3px);
+}
+
+button,
+input {
+  font: inherit;
+  padding: 0.2em 0.6em;
+}
+
+hr {
+  border-width: 0;
+  border-top: 3px dashed #ccc;
+  display: block;
+  margin: 3em 0;
+}
