@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Implication</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page">
+    
+      <h1>Implication</h1>
+      
+      <p>The boolean operators you get in most programming languages (and, or, not, xor...) tend to leave out <em>implication</em>.
+
+      <h3>Implication:</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>p
+            <th>q
+            <th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>T</code>
+            <td><code>T</code>
+            <td><strong><code>T</code></strong>
+          </tr>
+          <tr>
+            <td><code>T</code>
+            <td><code>F</code>
+            <td><strong><code>F</code></strong>
+          </tr>
+          <tr>
+            <td><code>F</code>
+            <td><code>T</code>
+            <td><strong><code>T</code></strong>
+          </tr>
+          <tr>
+            <td><code>F</code>
+            <td><code>F</code>
+            <td><strong><code>T</code></strong>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>When it's useful</h2>
+
+      <p>Say you have a configuration that has different modes, and each mode has a set of options. You want to make sure that options for mode <code>A</code> are only used when mode is actually <code>A</code>.</p>
+
+      <aside>(better modelling of the problem to make using <code>A</code>'s options without being in mode <code>A</code> would be a nice solution to this, but bear with me)</aside>
+
+      <p>You could do this:</p>
+
+      <pre>
+        if (optionForA is set) {
+            assert(mode === 'A', 'optionForA is only valid when mode is A')
+        }
+      </pre>
+
+      <p>but that's not that nice. Implication helps!</p>
+
+      <pre>
+        assert((optionForA is set) → (mode === 'A'),
+            'optionForA is only valid when mode is A')
+      </pre>
+
+      <p>Doing this with the standard programming language boolean operators works, but is not easy for me to read:</p>
+
+      <pre>
+        assert(!(optionForA is set) || (mode === 'A'))
+      </pre>
+
+      <p>Ternaries can help, but the `: true` side gives me a WTF moment every time</p>
+
+      <pre>
+        assert((optionForA is set) ? (mode === 'A') : true,
+            'optionForA is only valid when mode is A')
+      </pre>
+
+      <p>You can't define new operators in javascript, but you can make functions:</p>
+
+      <pre>
+        const implication = (p, q) => p ? q : true;
+
+        assert(implication(optionForA is set, mode === 'A'),
+            'optionForA is only valid when mode is A')
+      </pre>
+
+      <p>If you like taking things too far like I do, you can search through unicode character lists for an arrow-like letter that is a valid JS name:</p>
+
+      <pre>
+        const 𐅙 = (p, q) => p ? q : true;
+
+        assert(𐅙(optionForA is set, mode === 'A'),
+            'optionForA is only valid when mode is A')
+      </pre>
+
+      <p>Unfortunately javascript is strict, so we can't short-circuit the right-hand-side expression the way JS does with && and ||.</p>
+
+      <pre>
+        false && die();   // doesn't die
+        true  || die();   // still alive!
+        𐅙(false, die());  // x_x
+      </pre>
+    </div>
+  </body>
+</html>
