@@ -54,55 +54,55 @@
       <p>You could do this:</p>
 
       <pre>
-        if (optionForA is set) {
-            assert(mode === 'A', 'optionForA is only valid when mode is A')
-        }
+if (optionForA is set) {
+    assert(mode === 'A', 'optionForA is only valid when mode is A')
+}
       </pre>
 
       <p>but that's not that nice. Implication helps!</p>
 
       <pre>
-        assert((optionForA is set) → (mode === 'A'),
-            'optionForA is only valid when mode is A')
+assert((optionForA is set) → (mode === 'A'),
+    'optionForA is only valid when mode is A')
       </pre>
 
       <p>Doing this with the standard programming language boolean operators works, but is not easy for me to read:</p>
 
       <pre>
-        assert(!(optionForA is set) || (mode === 'A'))
+assert(!(optionForA is set) || (mode === 'A'))
       </pre>
 
       <p>Ternaries can help, but the `: true` side gives me a WTF moment every time</p>
 
       <pre>
-        assert((optionForA is set) ? (mode === 'A') : true,
-            'optionForA is only valid when mode is A')
+assert((optionForA is set) ? (mode === 'A') : true,
+    'optionForA is only valid when mode is A')
       </pre>
 
       <p>You can't define new operators in javascript, but you can make functions:</p>
 
       <pre>
-        const implication = (p, q) => p ? q : true;
+const implication = (p, q) => p ? q : true;
 
-        assert(implication(optionForA is set, mode === 'A'),
-            'optionForA is only valid when mode is A')
+assert(implication(optionForA is set, mode === 'A'),
+    'optionForA is only valid when mode is A')
       </pre>
 
       <p>If you like taking things too far like I do, you can search through unicode character lists for an arrow-like letter that is a valid JS name:</p>
 
       <pre>
-        const 𐅙 = (p, q) => p ? q : true;
+const 𐅙 = (p, q) => p ? q : true;
 
-        assert(𐅙(optionForA is set, mode === 'A'),
-            'optionForA is only valid when mode is A')
+assert(𐅙(optionForA is set, mode === 'A'),
+    'optionForA is only valid when mode is A')
       </pre>
 
       <p>Unfortunately javascript is strict, so we can't short-circuit the right-hand-side expression the way JS does with && and ||.</p>
 
       <pre>
-        false && die();   // doesn't die
-        true  || die();   // still alive!
-        𐅙(false, die());  // x_x
+false && die();   // doesn't die
+true  || die();   // still alive!
+𐅙(false, die());  // x_x
       </pre>
     </div>
   </body>
