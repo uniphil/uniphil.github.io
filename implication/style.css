@@ -77,3 +77,10 @@ hr {
   display: block;
   margin: 3em 0;
 }
+
+th, td {
+  padding: 0.5em;
+}
+table > thead > tr > th {
+  border-bottom: 3px dashed #eee;
+}
