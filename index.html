@@ -8,10 +8,22 @@
       text-align: center;
     }
     .hello {
-      margin-top: 20%;
+      margin: 20% 0;
       line-height: 120px;
       width: 100%;
-      font-size: 60px;
+      font-size: 30px;
+    }
+    .cols {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .col {
+      flex: 0 0 16em;
+      padding: 0 1em;
+    }
+    .col img {
+      width: 16em;
     }
     article {
       margin: 3em auto;
@@ -25,77 +37,101 @@
 <body>
   <p class="hello">Hello, my name is <a href="https://github.com/uniphil">uniphil</a>. <small>(this is the master branch)</small></p>
 
-  <h2>2017</h2>
- 
-  <article>
-    <h3>
-      <a href="https://twitter.com/NYT_finally/with_replies" title="NYT Finally Said">Twitter bot: NYT Finally Said</a>
-      <small><a href="https://github.com/uniphil/nyt-finally-said">source</a></small>
-    </h3>
-    <p>Cross-references words published in the New York Times for the first time (via <a href="https://twitter.com/nyt_first_said">@NYT_first_said</a>) with the <a href="https://storage.googleapis.com/books/ngrams/books/datasetsv2.html">Ngram dataset from Google</a>, reporting how many books have already published text containing that word.
-  </article>
+  <div class="cols">
+    <div class="col">
+      <h2>Projects</h2>
 
-  <article>
-    <h3>
-      <a href="https://github.com/ratehub/react-combo-test">Library: <code>react-combo-test</code></a>
-    </h3>
-    <p>Smash lots of states against components to find more bugs!</p>
-  </article>
-  
-  <article>
-    <h3>
-      <a href="https://soundcloud.com/ph-schl/distracted">Music: Distracted</a>
-    </h3>
-  </article>
+      <h3>2017</h3>
 
-  <article>
-    <h3>
-      <a href="implication/">Blog: Implication</a>
-    </h3>
-    <p>An under-appreciated boolean operator</p>
-  </article>
+      <article>
+        <h4>
+          <a href="https://twitter.com/NYT_finally/with_replies" title="NYT Finally Said">NYT Finally Said</a>
+          <small><a href="https://github.com/uniphil/nyt-finally-said">source</a></small>
+        </h4>
+        <p>A twitter bot that cross-references words published in the New York Times for the first time (via <a href="https://twitter.com/nyt_first_said">@NYT_first_said</a>) with the <a href="https://storage.googleapis.com/books/ngrams/books/datasetsv2.html">Ngram dataset from Google</a>, reporting how many books have already published text containing that word.
+      </article>
 
-  <article>
-    <h3>
-      <a href="https://canada150.guide/">Canada150 Guide</a>
-    </h3>
-    <p>Collecting stories about Canada's past and present that broaden the narrative of Canada150.</p>
-  </article>
+      <h3>2016</h3>
 
-  <h2>2016</h2>
+      <article>
+        <h4>
+          <a href="http://write-only.space/">write-only.space</a>
+          <small><a href="https://github.com/uniphil/write-only.space">source</a></small>
+        </h4>
+        <p>Save notes by emailing them to <a href="mailto:note@write-only.space">note@write-only.space</a> &ndash; no account required. Notes are organized by author (the email sender) and topic (the subject line). Access to notes is via a special link that is sent as a reply to the author.
+      </article>
 
-  <article>
-    <h3>
-      <a href="http://write-only.space/">write-only.space</a>
-      <small><a href="https://github.com/uniphil/write-only.space">source</a></small>
-    </h3>
-    <p>Save notes by emailing them to <a href="mailto:note@write-only.space">note@write-only.space</a> &ndash; no account required. Notes are organized by author (the email sender) and topic (the subject line). Access to notes is via a special link that is sent as a reply to the author.
-  </article>
+      <h3>2015</h3>
 
-  <h2>2015</h2>
+      <article>
+        <h4>
+          <a href="http://web-trc.ca">Truth &amp; Reconciliation Report extracted from PDF</a>
+          <small><a href="https://github.com/uniphil/trc-plaintext/">source</a></small>
+        </h4>
+        <p>Through a combination of scripting and manual clean-up, the text, formatting, and metadata was recovered from all 388 pages of the TRC's <a title="Truth and Reconciliation Commission of Canada Findings" href="http://www.trc.ca/websites/trcinstitution/index.php?p=890">Executive Summary (2015)</a>. It is hosted online at <a href="http://web-trc.ca">web-trc.ca</a>, with an interface for linking directly to any block of text, sharing passages via social media, and integration with videos from <a href="https://www.youtube.com/playlist?list=PLxPr_RIsvg9JJWoiRx2kl2v24r_pu7JbR" title="#ReadTheTRCReport YouTube playlist">#ReadTheTRCReport</a>, a collection recordings of people reading the entire report.</p>
+      </article>
 
-  <article>
-    <h3>
-      <a href="virtual-dom/">Blog: Virtual DOM is not a feature</a>
-    </h3>
-    <p>Discoveries from an exploration of declarative user interfaces for the web in javascript</p>
-  </article>
+      <article>
+        <h4>
+          <a href="https://uniphil.github.io/on-bridges/">ontario bridges</a>
+          <small><a href="https://github.com/uniphil/on-bridges/">source</a></small>
+        </h4>
+        <p><a href="https://uniphil.github.io/on-bridges/"><img src="on-bridges-proj/on-bridges.png" alt="Thumbnail of the Ontario Bridges demo"></a></p>
+      </article>
+    </div>
 
-  <article>
-    <h3>
-      <a href="http://web-trc.ca">Truth &amp; Reconciliation Report extracted from PDF</a>
-      <small><a href="https://github.com/uniphil/trc-plaintext/">source</a></small>
-    </h3>
-    <p>Through a combination of scripting and manual clean-up, the text, formatting, and metadata was recovered from all 388 pages of the TRC's <a title="Truth and Reconciliation Commission of Canada Findings" href="http://www.trc.ca/websites/trcinstitution/index.php?p=890">Executive Summary (2015)</a>. It is hosted online at <a href="http://web-trc.ca">web-trc.ca</a>, with an interface for linking directly to any block of text, sharing passages via social media, and integration with videos from <a href="https://www.youtube.com/playlist?list=PLxPr_RIsvg9JJWoiRx2kl2v24r_pu7JbR" title="#ReadTheTRCReport YouTube playlist">#ReadTheTRCReport</a>, a collection recordings of people reading the entire report.</p>
-  </article>
+    <div class="col">
+      <h2>Not Projects</h2>
 
-  <article>
-    <h3>
-      <a href="https://uniphil.github.io/on-bridges/">ontario bridges</a>
-      <small><a href="https://github.com/uniphil/on-bridges/">source</a></small>
-    </h3>
-    <p><a href="https://uniphil.github.io/on-bridges/"><img src="on-bridges-proj/on-bridges.png" alt="Thumbnail of the Ontario Bridges demo"></a></p>
-  </article>
+      <h3>2017</h3>
+
+      <article>
+        <h4>
+          <a href="https://github.com/ratehub/react-combo-test"><code>react-combo-test</code></a>
+        </h4>
+        <p>A library to smash lots of states against components to find more bugs!</p>
+      </article>
+
+      <article>
+        <h4>
+          <a href="https://soundcloud.com/ph-schl/distracted">Music: Distracted</a>
+        </h4>
+        <p>You got me ♫ distracted</p>
+      </article>
+
+      <article>
+        <h4>
+          <a href="implication/">Implication</a>
+        </h4>
+        <p>An under-appreciated boolean operator</p>
+      </article>
+
+      <h3>2015</h3>
+
+      <article>
+        <h4>
+          <a href="virtual-dom/">Virtual DOM is not a feature</a>
+        </h4>
+        <p>Discoveries from an exploration of declarative user interfaces for the web in javascript</p>
+      </article>
+    </div>
+
+    <div class="col">
+      <h2>Etc.</h2>
+
+      <article>
+        <h4>meta</h4>
+        <p><a href="2018/statement">statement</a></p>
+      </article>
+
+      <article>
+        <h4>places</h4>
+        <p><a href="https://twitter.com/uniphil_">twitter</a></p>
+        <p><a href="https://www.instagram.com/uniphil/">instagram</a></p>
+        <p><a href="https://github.com/uniphil">github</a></p>
+      </article>
+    </div>
+  </div>
 
   <script>
     var i = 999, e = ['?', '!'];
