@@ -3,12 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <title>Whitney</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="page">
       <h1>Whitney</h1>
-      <p>The software track at <a href="http://sfpc.io/"><abbr title="School For Poetic Computation">SFPC</abbr></a> teaches creative coding by <a href="https://recodeart.wordpress.com/" title="recodeArt project">recreating works or styles</a> of pioneering artists, like the animator John Whitney.</p>
+      <p>The software track at <a href="http://sfpc.io/"><abbr title="School For Poetic Computation">SFPC</abbr></a> teaches creative coding by <a href="https://recodeart.wordpress.com/" title="recodeArt project">recreating works or styles</a> of pioneering artists like the animator John Whitney.</p>
 
       <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/5eMSPtm6u5Y?rel=0&start=57" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
@@ -19,17 +20,72 @@
 
       <p>When Whitney says 'these devices', he is talking about antiaircraft gun directors from World War II.</p>
 
-      <p><img alt="WWII-era gun director, appearing as a labeled, large cubic metal box with many knobs, guages, and adjustments, and a very steampunk scope on top." height="688" width="560" src="m7-director.jpg" /></p>
+      <p>
+        <img
+          alt="WWII-era gun director, appearing as a labeled, large cubic metal box with many knobs, guages, and adjustments, and a very steampunk scope on top."
+          height="688"
+          width="560"
+          src="m7-director.jpg"
+        />
+      </p>
 
       <p>An antiaircraft gun director aims a gun, given a few inputs like altitude and speed, at an aircraft. The operator simply points the gunsight directly at where the target is <em>now</em>; the machine computes how far ahead to aim the projectile.</p>
 
       <p>In the 1950s, John Whitney repurposed an M5 (and later an M7) antiaircraft gun director to precisely control camera and subject motions for film, creating groud-breaking animations.</p>
 
-      <p>During this period he also directed engineering films on guided missiles, which leads me to interpret his work more as a celebration of the tools of war than as a tale of Swords to Ploughshares or in any way subversive. So, inspired by Whitney, I used a tool of art to create a tool of war.</p>
+      <p>During this period he also directed engineering films on guided missiles, which leads me to interpret his work more as a celebration of the tools of war than as a tale of Swords to Ploughshares or in any way subversive. So, inspired by Whitney, I set out to make a tool of war out of a tool of art.</p>
 
       <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/_t-Noc62cMc?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-      <p>My antiaircraft gun director is modelled after Whitney's M5, with gravity and aircraft altitude and speed acurately modelled. Height and speed are input by tracking an aircraft with the mouse.</p>
+      <p>My antiaircraft gun director is based on the specs for Whitney's M5, with gravity and aircraft altitude and speed acurately modelled. Height and speed are input with the mouse: you simply track the aircraft and the software will aim ahead to hit it.</p>
+
+      <hr />
+
+      <p>At some point in the process of creating this tool, I noticed that I was spending more time playing with it than necessary to just to make it work. It's kind of fun to shoot planes out of the sky in a video game. But this is supposed to be a tool for military use, not a video game.</p>
+
+      <p>The process became an exercise in something like minimalism, stripping away as much of the experience as possible while still creating a critique of Whitney. Remnants of the pre-anti-fun time are still scattered throughout the code, like <a href="https://github.com/uniphil/of-experiments/blob/d79fae63453f2a3f04fe4b7650b68b4b6a739a88/whitney/src/plane.hpp#L16">keeping a concept</a> of "when a plane was struck" instead of just removing it, so that the explosion or whatever could be drawn.</p>
+
+      <p>
+        <img
+          alt="code sample of the main header file, showing constants defined for things like gravity, max plane speed, and reload time, and a boringness constant"
+          height="239"
+          width="570"
+          src="constants.png"
+        />
+      </p>
+
+      <p>I ended up deciding on three priorities to inform decisions:</p>
+
+      <ol>
+        <li>Basically work&ndash;be as accurate as possible</li>
+        <li>Be usable&ndash;the whole point is to assist a gun operator</li>
+        <li>Be boring&ndash;try hard not to make it fun!</li>
+      </ol>
+
+      <p>Generally this ordering worked. Three exceptions were made to rule #1: air resistance is not modelled, a heuristic is used to simplify solving the prediction (to compute it exactly requires <a href="https://en.wikipedia.org/wiki/Quartic_function#Solving_a_quartic_equation">solving a quartic&hellip;</a>), and aircraft are drawn twice as large as they would be.</p>
+
+      <p>I let the first two slide because they are difficult, and fixing them would require a time investment that would not really serve the ultimate purpose of critique that the piece is supposed to be. But it still hurts a little that I didn't <em>at least</em> get air resistance in. (the rest really is pretty well researched and accurate! and it doesn't matter! and I hate weapons anyway!)</p>
+
+      <p>So how to draw aircraft to balance these priorities?</p>
+
+      <p>
+        <img
+          alt="two bombers"
+          height="246"
+          width="364"
+          src="bombers.png"
+        />
+      </p>
+
+      <p>They could have been featureless little rectangles for maximum boringness, but I felt that they should be somewhat representative to make it easier to understand the piece. And to show up on the screen (and also because computer mouses, trackpads, and touchscreens are all imprecise input devices), they break the scale and are double their actual size.</p>
+
+      <p>From the reactions of classmates, the piece had mixed success in not being fun. Feelings toward it seemed to be mostly neutral, but with some skew in both directions, toward "fun" and also toward "not fun at all, very unsettling".</p>
+
+      <p>My favourite reaction was from <a href="http://gonzamoiguer.com.ar/">Gonza</a>, who was very accurate at hitting planes by anticipating their trajectory himself, without using the predictor in a helpful way. Once he understood how the predictor worked, it instantly lost its fun and became very boring. Yay?</p>
+
+      <hr/>
+
+      <p>I'll admit I started down this path as a cop-out of the Whitney homework as assigned (I've done visual stuff with <code>sin</code> and <code>cos</code>  a <a href="https://codepen.io/uniphil/full/AwzCH/">few</a> <a href="https://codepen.io/uniphil/full/zcyCD/">times</a> <a href="https://codepen.io/uniphil/full/LzXZjd/">before</a>), but it was an interesting process and led to discussions and questions that will stay with me.</p>
 
     </div>
   </body>
