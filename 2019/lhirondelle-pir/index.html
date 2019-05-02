@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Motion Sensor Audio Switch</title>
-    <meta name="description" content="A slit-scan instant camera. One vertical column of pixels from a small camera module is sent continuously to a thermal receipt printer." />
+    <meta name="description" content="A motion-controlled audio switch for Cheryl l'Hirondelle's installation at the Art Gallery of Alberta" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -11,9 +11,20 @@
     <div class="page">
       <h1>Motion Sensor Audio Switch</h1>
 
-      <p>For an installation by Cheryl l'Hirondelle.</p>
+      <blockquote>
+        <p><em>Fix your hearts or die</em> is a call to action wherein the stasis of maintaining the status quo is equivalent to death, either metaphorical or real. It is a call to viewers to engage with difficult or challenging topics and the complex intersections that are present for Indigenous artists. Cheryl L’Hirondelle uses a prospector tent, projection, and sound to create a space where alternate cognitions and a self-determining existence as a self-described half-breed woman exhibits and transmits unconventional, seer-like illuminations. Daniel Cardinal McCartney lays bare the disruption of his family due to the damaging effects of residential school, and connects this history to his gender identity and ongoing discrimination. In an act of great care, Sheri Nault adorns natural materials with beads, human hair, and bondage rope to connect themselves as a queer Indigenous person to the natural world. Adrian Stimson dissects and re-imagines a violent engraving from the 1500s by Theodore De Bry as a series of paintings wherein smiling nude Indigenous men hold puppies while observed by Spanish conquistadors, rather than being torn apart by dogs, as in the original work.</p>
+        <p><cite><a href="https://www.youraga.ca/exhibitions/Fixyourhearts" target="_blank">Fix your hearts or die</a> at the Art Gallery of Alberta</cite></p>
+      </blockquote>
 
-      <p>A 12v security motion sensor was adapted to control an audio signal.
+      <p>
+        <img
+          alt="Final device, with audio and power hooked up for testing"
+          width="640"
+          src="pir.jpg"
+        />
+      </p>
+
+      <p>The audio for Cheryl l'Hirondelle's piece is motion-activated. We adapted a 12V security motion sensor (DSC LC-100-PI that l'Hirondelle already had) to switch an audio signal with a configurable timeout.
 
       <p>
         <img
@@ -23,11 +34,9 @@
         />
       </p>
 
-      <p>A custom circuit adds an adjustable delay (set for 50 seconds) to keep the audio signal active once it's triggered. Testing with music:
+      <p>Two 3.5mm audio jacks (standard headphone / aux connection) are exposed on the sides of the sensor housing: connect one to an audio source (like an iPod), and the other to powered speakers. Relays inside housing connect them together when motion is detected.
 
-      <iframe src="https://player.vimeo.com/video/333244076?title=0&byline=0&portrait=0" width="315" height="560" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-
-      <p>The whole setup fits inside the original motion detector, except the barrel jack for power! I used one of the purple jacks I got for <a href="https://gumroad.com/l/printer-power" target="_blank">Printer Power</a>
+      <p>The whole system runs on 12V via a standard 2.1mm (<a href="https://gumroad.com/l/printer-power" target="_blank">purple!</a>) centre-positive DC barrel jack. Power supplies from most modems and routers should be compatible.
 
       <p>
         <img
@@ -37,8 +46,70 @@
         />
       </p>
 
-      <p>Planning more thorough testing in the next few days.</p>
+      <h2>Installation</h2>
 
+      <p>The sensor runs a calibration routine when powered up. If it gets moved, it needs to be re-calibrated by disconnecting and reconnecting power. The red LED will blink during calibration. It is best if the area is cleared of people and motion during calibration.
+
+      <p>The red LED will light for two seconds each time the device detects motion. The custom control circuit will keep the audio connected for a configurable time after motion is detected.
+
+      <p>The <a href="LC-100-PI.pdf" target="_blank">LC-100 manual</a> has more notes about installation for optimal motion detection.</p>
+
+      <h2>Configuration</h2>
+
+      <p>We configured it for the maximum delay (just short of 4 minutes). The shortest delay is about 30 seconds. To change the delay, rotate the small silver potentiometer on the brown circuit board with a 1mm flat-head screwdriver:
+
+      <p>
+        <img
+          alt="Audio timeout adjustment potentiometer"
+          width="1200"
+          src="adjust.jpg"
+        />
+      </p>
+
+      <p>The <a href="LC-100-PI.pdf" target="_blank">LC-100 manual</a> documents its configuration options. We configured it for maximum sensitivity, and minimum "pet immunity".</p>
+
+      <p>If you have to open it up, take care on reassembly – it's getting quite crowded inside! In particular, make sure that the white audio wires do not block the motion sensor. They should mostly live above the 3 clear plastic "light pipes", above the brown custom circuit board and terminal block.
+
+      <p>
+        <img
+          alt="Side view, just before closing"
+          width="1200"
+          src="closing.jpg"
+        />
+      </p>
+
+      <p>The custom brown circuit board is connected by short solid-core wires to the grey terminal block. The four wires should connect to <code>+</code> and <code>-</code> for power, and <code>C</code> and <code>NC</code> for detection:
+
+      <p>
+        <img
+          alt="terminal block connections"
+          width="800"
+          src="connections.jpg"
+        />
+      </p>
+
+      <h2>Technical notes</h2>
+
+      <p>The motion sensor's detection signal is "NC" — Normally Closed, which is the opposite of what we want, so the first part of the custom circuit uses a 2N3906 (general purpose PNP) as an inverter to charge the capacitor when motion is detected.
+
+      <p>When motion is detected, the inverted signal charges the capacitor and turns on the darlington pair of 2N3904s that drive the relays, connecting the audio. Two 12V DPST relays are wired in parallel, for the left and right audio channels. The potentiometer controls the rate of capacitor discharge, affecting the time that the audio stays active after motion is detected.
+
+      <p>
+        <img
+          alt="audio control schematic"
+          width="1200"
+          src="circuit.svg"
+        />
+      </p>
+
+      <p>The 2N3904 discrete darlington pair is not the most ideal driver for the relays, but it's the parts I had on hand. A TIP-120 or similar would probably be a better choice, and with its internal protection diode, likely eliminate the need for the 1N4001. The absolute maximum collector current for the 2N3904 is 200mA, and even with parallel relay coils we should be under 150mA for the short moment after they engage (after which the current slowly falls as the capacitor discharges). So this should be ok! 🤞
+
+      <p>The dual DPST relays would be better as a single DPDT relay, but again, parts on hand. The main downsides are: higher current draw when active, and possible differences in coil's disengagement voltage. We didn't test to see if the left and right channel audio cut-off times were noticeably different, and whether that was a problem. Hopefully it's ok!
+
+      <p>The voltages at the transistor bases might be a bit out of spec, but the base currents should all be small, so hopefully this is fine :)
+
+      <hr />
+      <p><a href="/">more stuff</a></p>
 
     </div>
     <img src="https://counter.cv2.ca/count.gif" style="position:absolute;left:-9999em" alt="visitor counter" aria-hidden="true" />
