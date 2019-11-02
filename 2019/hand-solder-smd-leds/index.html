@@ -68,7 +68,7 @@
         </video>
       </figure>
 
-      <p>The wires have a nice visual pattern with all wires travelling the same direction being on the same side. The LEDs themselves are structural, anchoring between the wires at each intersection and keeping them apart. I wanted to try for a classic under/over weave, so I pulled some multi-strand wire apart and gave it a shot:</p>
+      <p>The wires have a nice visual pattern with all wires travelling the same direction on the same side. The LEDs themselves are structural, anchoring between the wires at each intersection and keeping them apart. I wanted to try for a classic under/over weave, so I pulled some multi-strand wire apart and gave it a shot:</p>
 
       <figure>
         <div class="row">
@@ -78,16 +78,16 @@
             <source src="weave-attempt.mp4" />
           </video>
         </div>
-        <figcaption><em>I am leaving out the hairball-like actual first try at this :)</em></figcaption>
+        <figcaption><em>I am leaving out my hairball-like actual first try at this :)</em></figcaption>
       </figure>
 
-      <p>I was ambitious, and upped it to 7 pins, for 42 individual LEDs. It was not a perfect success. It's likely that I soldered some shorts I couldn't find, and some of the delicate SMD LEDs may have been compromised. I also probably made mistakes orienting the LEDs correctly with all that over/under back-and-forth to keep track of!</p>
+      <p>I was ambitious, and upped it to 7 pins, for 42 individual LEDs. It was not a perfect success. It's likely that I soldered some shorts I couldn't find, and some of the delicate SMD LEDs may have been physically compromised. I also probably made mistakes orienting the LEDs correctly with all that over/under back-and-forth to keep track of!</p>
 
       <p>Still, I learned a lot! Especially about how hard it can be to debug Charlieplexed arrays. But also, that this weaving pattern creates a really nice visual texture, and the resulting material feels good: sturdy yet flexible.</p>
 
       <p>I'd like to dive deeper in this direction! I want to make bigger meshes, and I want to try other weaving patterns, like <a href="https://en.wikipedia.org/wiki/Twill" target="_blank">twills</a>, or maybe <a href="https://en.wikipedia.org/wiki/Houndstooth" target="_blank">houndstooth</a>? Maybe these can result in glowy-meshy materials with different flexing/stretching properties!</p>
 
-      <p>But, for the time beeing, I'm falling down several different other rabit holes from this :) In <a href="https://crawlingrobotfortress.blogspot.com/2019/02/led-multiplexing-layouts-for-hand.html" target="_blank">their post</a>, M Rule proses some (wild!) alternate layouts for the mesh:</p>
+      <p>For the time beeing, I'm falling down several different other rabit holes from this. In <a href="https://crawlingrobotfortress.blogspot.com/2019/02/led-multiplexing-layouts-for-hand.html" target="_blank">their post</a>, M Rule proposes some fancy alternate layouts for the mesh, still following the same basic pattern:</p>
 
       <figure>
         <div class="row">
@@ -101,11 +101,11 @@
         <figcaption>Really, the post is so good, <a href="https://crawlingrobotfortress.blogspot.com/2019/02/led-multiplexing-layouts-for-hand.html" target="_blank">check it outttt</a> ✨</figcaption>
       </figure>
 
-      <p>The cylinder immediately jumps out to me, because it seems like a short gap from there to make a sphere! (I spend way too much time thinking about <a href="https://en.wikipedia.org/wiki/Map_projection" target="_blank">map projections</a>&hellip;). A couple neat things happened from following this path:</p>
+      <p>The cylinder immediately jumps out at me, because it seems like a short gap from there to a sphere! (I spend way too much time thinking about <a href="https://en.wikipedia.org/wiki/Map_projection" target="_blank">map projections</a>&hellip;). A couple neat things going down this path:</p>
 
       <ul>
-        <li><p>When the cylinder loops around, each wire meets back at itself perfectly! They each go up at an angle to the top, then turn around and meet themselves back at the bottom, in a sort of diamond or triangle-wave pattern.</p></li>
-        <li><p>When you start pulling in the top and bottom to make it spherical, the wire <em>angles</em> at the top and bottom turnarounds start rounding out&hellip;</p></li>
+        <li><p>When the cylinder wraps around, each wire meets back at itself perfectly! They go up at an angle to the top, then back down and meet themselves back at the bottom, in a sort of diamond or triangle-wave pattern.</p></li>
+        <li><p>When you start pulling in the top and bottom to make it spherical, the wire <em>angles</em> at the top and bottom turnarounds start straightening out out&hellip;</p></li>
         <li><p>&hellip;until YOU COULD ACTUALY JUST MAKE ALL THE WIRES BE CIRCLES!?</li></p>
       </ul>
 
@@ -116,7 +116,7 @@
         <img src="5-ring-test-assembled.jpg" alt="five rings of thick wire, tilted and rotated so they outline a sphere, with pentagonal holes at the top and bottom. small pieces of tape hold it together." />
       </figure>
 
-      <p>Promising! Every ring crosses every other ring twice (remember we connect every pin to every other pin in charlieplexing, twice, for pairs of parallel/reversed LEDs). We could get a bigger array by just using more rings, and tilting + rotating in the same way. I quickly soldered up a test with 20 pink LEDs:</p>
+      <p>Promising! Every ring crosses every other ring twice (remember we connect every pin to every other pin twice in charlieplexing!) We could get a bigger array by just fitting in more rings. They sort of tilt-then-rotate in this pattern. I <del>quickly</del> soldered up a test with 20 pink LEDs:</p>
 
       <figure class="row">
         <img src="5-ring-led-test.jpg" alt="five lumpy wire rings outlining a sphere with LEDs connecting them." />
@@ -128,7 +128,7 @@
 
       <p>And then I danced a bit.</p>
 
-      <p>From here, a number of projects have sprouted! I may sometime find energy to write a bit about them too! A teaser:</p>
+      <p>From here, a number of projects have sprouted! A teaser:</p>
 
       <figure class="row">
         <img src="4-rings.jpg" alt="small metal sculpture made of four circular rings connected with glowing pink LEDs. a coin-cell battery is suspended in the centre by resistors. It's a glowy sparkly ball and here's another hint, this project goes in a touch-sensing interactive lil friend direction :)" />
