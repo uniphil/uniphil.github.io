@@ -11,9 +11,11 @@
     <div class="page">
       <h1>Hand-soldering tiny charlieplexed LEDs</h1>
 
-      <video src="3-wire.webm" poster="3-wire.jpg" height="360" autoplay loop>
-        <img src="3-wire.jpg" alt="tiny LED sculpture with six surface-mount LEDs soldered directly onto three wires, flashing in an ascending pattern" />
-      </video>
+      <figure class="row">
+        <video src="3-wire.webm" poster="3-wire.jpg" autoplay loop>
+          <img src="3-wire.jpg" alt="tiny LED sculpture with six surface-mount LEDs soldered directly onto three wires, flashing in an ascending pattern" />
+        </video>
+      </figure>
 
       <p>Recently, an awesome blog post found me that started with this sentence:</p>
 
@@ -24,10 +26,9 @@
 
       <p>I've been itching to wire some tiny surface-mount LEDs in some kind of flexible multi-plexed array since this spring, when I <a href="https://www.tindie.com/products/onesandzeros/printer-power/" target="_blank">semi-accidentally ended up with 1000 pink LEDs</a> in my posession. In my mind, I was seeing some kind of dense fabric-y geodesic dome.</p>
 
-      <figure>
+      <figure class="row">
         <img
           alt="1000 pink SMD leds on a reel, and a close-up detail shot with tweezers and a finger for scale. they are tiny!"
-          width="640"
           src="1k-smds.jpg"
         />
       </figure>
@@ -43,21 +44,22 @@
       <p>From <em>connect every pin to every other pin</em>, you can get a sense that this lets you control a lot of LEDs with a small number of microcontroller (eg., Arduino) pins.</p>
 
       <figure>
-        <a href="https://crawlingrobotfortress.blogspot.com/2019/02/led-multiplexing-layouts-for-hand.html" target="_blank">
-          <img
-            alt="A column of 30 colourful LEDs flashing in an ascending pattern, standing up in a breadboard."
-            src="m-rule-loop.gif"
-            width="200"
-          />
-        </a>
-       <figcaption>M Rule's beautiful <a href="https://crawlingrobotfortress.blogspot.com/2019/02/led-multiplexing-layouts-for-hand.html" target="_blank">beaded woven multi-colour Charlieplexed array</a> 😍</figcaption>
+        <div class="row">
+          <a href="https://crawlingrobotfortress.blogspot.com/2019/02/led-multiplexing-layouts-for-hand.html" target="_blank">
+            <img
+              alt="A column of 30 colourful LEDs flashing in an ascending pattern, standing up in a breadboard."
+              src="m-rule-loop.gif"
+            />
+          </a>
+        </div>
+        <figcaption>M Rule's beautiful <a href="https://crawlingrobotfortress.blogspot.com/2019/02/led-multiplexing-layouts-for-hand.html" target="_blank">beaded woven multi-colour Charlieplexed array</a> 😍</figcaption>
       </figure>
 
       <p>So, this seemed like a perfect way to start working through my thousand pink LEDs! I started with the most literal version of the pattern, first with three pins (the first GIF in this post), and then four:</p>
 
-      <figure>
-        <img src="helping-hands.jpg" height="240" alt="'helping hands' holding bent wires ready to solder the first LEDs" />
-        <video class="inline" src="4-wire.webm" poster="4-wire.jpg" height="240" autoplay loop>
+      <figure class="row">
+        <img src="helping-hands.jpg" alt="'helping hands' holding bent wires ready to solder the first LEDs" />
+        <video src="4-wire.webm" poster="4-wire.jpg" autoplay loop>
           <img src="4-wire.jpg" alt="another tiny LED sculpture with 12 surface-mount LEDs soldered directly onto four wires, flashing in a fast descending pattern" />
         </video>
       </figure>
@@ -65,8 +67,10 @@
       <p>The wires have a nice visual pattern with all wires travelling the same direction being on the same side. The LEDs themselves are structural, anchoring between the wires at each intersection and keeping them apart. I wanted to try for a classic under/over weave, so I pulled some multi-strand wire apart and gave it a shot:</p>
 
       <figure>
-        <img src="weave-attempt.jpg" height="300" alt="seven thin wires weaving around 42 small pink LEDs">
-        <video class="inline" src="weave-attempt.webm" height="300" width="300" autoplay loop></video>
+        <div class="row">
+          <img src="weave-attempt.jpg" alt="seven thin wires weaving around 42 small pink LEDs">
+          <video src="weave-attempt.webm" autoplay loop></video>
+        </div>
         <figcaption><em>I am leaving out the hairball-like actual first try at this :)</em></figcaption>
       </figure>
 
@@ -79,12 +83,14 @@
       <p>But, for the time beeing, I'm falling down several different other rabit holes from this :) In <a href="https://crawlingrobotfortress.blogspot.com/2019/02/led-multiplexing-layouts-for-hand.html" target="_blank">their post</a>, M Rule proses some (wild!) alternate layouts for the mesh:</p>
 
       <figure>
-        <a href="https://crawlingrobotfortress.blogspot.com/2019/02/led-multiplexing-layouts-for-hand.html" target="_blank">
-          <img
-            alt="alternate layout patterns proposed by M Rule for hand-wiring charlie-plexed LED matrices"
-            src="m-rule-layouts.png"
-          />
-        </a>
+        <div class="row">
+          <a href="https://crawlingrobotfortress.blogspot.com/2019/02/led-multiplexing-layouts-for-hand.html" target="_blank">
+            <img
+              alt="alternate layout patterns proposed by M Rule for hand-wiring charlie-plexed LED matrices"
+              src="m-rule-layouts.png"
+            />
+          </a>
+        </div>
         <figcaption>Really, the post is so good, <a href="https://crawlingrobotfortress.blogspot.com/2019/02/led-multiplexing-layouts-for-hand.html" target="_blank">check it outttt</a> ✨</figcaption>
       </figure>
 
@@ -98,24 +104,24 @@
 
       <p>It's easier to show this with a picture. Mocked up with five loops of wire:</p>
 
-      <figure>
-        <img height="360" src="5-ring-test-assembly.jpg" alt="holding wires in place with alligator clips and helping hands to get five rings in place" />
-        <img height="360" src="5-ring-test-assembled.jpg" alt="five rings of thick wire, tilted and rotated so they outline a sphere, with pentagonal holes at the top and bottom. small pieces of tape hold it together." />
+      <figure class="row">
+        <img src="5-ring-test-assembly.jpg" alt="holding wires in place with alligator clips and helping hands to get five rings in place" />
+        <img src="5-ring-test-assembled.jpg" alt="five rings of thick wire, tilted and rotated so they outline a sphere, with pentagonal holes at the top and bottom. small pieces of tape hold it together." />
       </figure>
 
       <p>Promising! Every ring crosses every other ring twice (remember we connect every pin to every other pin in charlieplexing, twice, for pairs of parallel/reversed LEDs). We could get a bigger array by just using more rings, and tilting + rotating in the same way. I quickly soldered up a test with 20 pink LEDs:</p>
 
-      <figure>
-        <img height="300" src="5-ring-led-test.jpg" alt="five lumpy wire rings outlining a sphere with LEDs connecting them." />
-        <video class="inline" src="5-ring-led-test.webm" height="300" width="300" autoplay loop></video>
+      <figure class="row">
+        <img src="5-ring-led-test.jpg" alt="five lumpy wire rings outlining a sphere with LEDs connecting them." />
+        <video src="5-ring-led-test.webm" autoplay loop></video>
       </figure>
 
       <p>And then I danced a bit.</p>
 
       <p>From here, a number of projects have sprouted! I may sometime find energy to write a bit about them too! A teaser:</p>
 
-      <figure>
-        <img height="360" src="4-rings.jpg" alt="small metal sculpture made of four circular rings connected with glowing pink LEDs. a coin-cell battery is suspended in the centre by resistors. It's a glowy sparkly ball and here's another hint, this project goes in a touch-sensing interactive lil friend direction :)" />
+      <figure class="row">
+        <img src="4-rings.jpg" alt="small metal sculpture made of four circular rings connected with glowing pink LEDs. a coin-cell battery is suspended in the centre by resistors. It's a glowy sparkly ball and here's another hint, this project goes in a touch-sensing interactive lil friend direction :)" />
       </figure>
 
       <hr />
@@ -124,9 +130,9 @@
 
       <p>I've mostly worked on this at <a href="https://interaccess.org/" target="_blank">InterAccess</a> in Toronto. They have nice soldering irons and stuff, and folks are nice. Come by Wednesday evenings for community nights, it's free!</p>
 
-      <p>for myself in the future: <code>MOV -> WEBM</code> crop/scale/not taking a hundred years: <code>ffmpeg -i IMG_5940.MOV -an -vframes 90 -vf crop=1080:768:0:420,scale=600x427 -cpu-used 1 4-wire.webm</code></p>
+      <p>for myself in the future: <code>MOV -> WEBM</code> crop/scale/not taking a hundred years: <small><code>ffmpeg -i IMG_5940.MOV -an -vframes 90 -vf crop=1080:768:0:420,scale=600x427 -cpu-used 1 4-wire.webm</code></small></p>
 
-      <p><a href="/">more stuff</a></p>
+      <p><a href="/">more stuff</a> ✨</p>
 
     </div>
     <img src="https://counter.cv2.ca/count.gif" style="position:absolute;left:-9999em" alt="visitor counter" aria-hidden="true" />

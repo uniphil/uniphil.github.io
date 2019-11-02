@@ -1,13 +1,14 @@
 html, body {
   font-family: sans-serif;
   font-size: 24px;
-  line-height: 1.618em;
+  line-height: 1.618;
   margin: 0;
   padding: 0;
 }
 
 h1 {
   border-bottom: 3px dashed #ccc;
+  line-height: 1.2;
   margin: 3em 0 1.5em;
   padding-bottom: 1rem;
 }
@@ -37,31 +38,37 @@ li {
 }
 
 .page {
+  box-sizing: border-box;
   margin: 0 auto;
   max-width: 32em;
   padding: 0 1em;
 }
 
-.page img {
-  max-width: 100%;
-}
-
 .page figure {
   display: block;
+  margin: 0;
   text-align: center;
 }
-
 .page figcaption {
   font-size: 0.8em;
 }
 
-.page video {
-  width: 100%;
-  max-width: 100%;
+.row,
+figure.row {
+  display: flex;
+  justify-content: center;
+  /*width: 100%;*/
 }
-
-.page video.inline {
-  width: auto;
+.row > * {
+  display: block;
+  margin: 0.5em;
+  max-width: 100%;
+  object-fit: contain;
+  max-height: 12em;
+}
+.row * img {
+  height: 100%;
+  max-width: 100%;
 }
 
 .postscripts {
@@ -113,4 +120,29 @@ pre {
   font-size: 18px;
   line-height: 1.333em;
   padding: 0.333em 0.667em;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 18px;
+    line-height: 1.4;
+  }
+  h1 {
+    font-size: 1.4em;
+    line-height: 1.1;
+    margin-top: 2em;
+  }
+  .row,
+  figure.row {
+    margin: -0.25em;
+  }
+  .row > * {
+    margin: 0.25em;
+    max-height: 50vh;
+  }
+
+  blockquote {
+    margin-left: calc(1em - 3px);
+    margin-right: 2em;
+  }
 }
