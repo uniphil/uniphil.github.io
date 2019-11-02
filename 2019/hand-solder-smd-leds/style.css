@@ -61,7 +61,7 @@ figure.row {
 }
 .row > * {
   display: block;
-  margin: 0.5em;
+  margin: 0.25em;
   max-width: 100%;
   object-fit: contain;
   max-height: 12em;
@@ -137,7 +137,6 @@ pre {
     margin: -0.25em;
   }
   .row > * {
-    margin: 0.25em;
     max-height: 50vh;
   }
 
